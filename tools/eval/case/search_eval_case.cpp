@@ -338,7 +338,7 @@ SearchEvalCase::do_knn_filter_search() {
         this->logger_->Error("dataset does not contain test_labels");
     }
     this->logger_->Debug("query count is " + std::to_string(query_count));
-    auto min_query = std::max<int64_t>(query_count, 10000);
+    auto min_query = std::max(static_cast<uint64_t>(query_count), config_.search_query_count);
     for (auto& monitor : this->monitors_) {
         const bool is_latency_monitor =
             this->latency_monitor_ != nullptr and monitor.get() == this->latency_monitor_.get();
